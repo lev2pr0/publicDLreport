@@ -58,12 +58,3 @@ Function publicDLreport {
         }
     }
 }
-
-    # Export results to CSV
-    try {
-        $results | Export-Csv -Path "PublicDLReport.csv" -NoTypeInformation
-        Write-Host "Report exported to PublicDLReport.csv" -ForegroundColor Green
-    } catch {
-        Write-Host "Error exporting results to CSV: $_" -ForegroundColor Red
-    }
-}
