@@ -46,41 +46,18 @@ Function publicDLreport {
     }
 
     # Get all public distribution groups members
-    $results = @()
     $public_groups | ForEach-Object {
-        if (!($Silent)) {
-            Write-Host "Processing group: $($_.name)" -ForegroundColor Cyan
-        }
-        try {
-            $members = Get-DistributionGroupMember -Identity $_.name
-            foreach ($member in $members) {
-                try {
-                    $recipient = Get-Recipient -Identity $member.name
-                    if ($showExternalOnly) {
-                        # Filter external members only
-                        $filtered = $recipient | Where-Object {$_.primarysmtpaddress.split("@")[1] -notin $Domains}
-                        $results += $filtered | Select-Object Name, PrimarySmtpAddress
-                    } else {
-                        # Add InternalExternal column
-                        $results += $recipient | Select-Object Name, PrimarySmtpAddress, @{
-                            Name = "InternalExternal";
-                            Expression = {
-                                if ($_.PrimarySmtpAddress.split("@")[1] -notin $Domains) {
-                                    "External"
-                                } else {
-                                    "Internal"
-                                }
-                            }
-                        }
-                    }
-                } catch {
-                    Write-Host "Error retrieving recipient details for member $($member.name): $_" -ForegroundColor Yellow
-                }
+        if (!($silent)) { Write-Host "Processing group: $($_.name)" -ForegroundColor Cyan}
+        $members = Get-DistributionGroupMember -Identity $_.name
+        foreach ($member in $members) {
+            if ($showExternalOnly) {
+                Get-Recipient -Identity $member.name | Select-Object name, PrimarySmtpAddress | Where-Object {$_.primarysmtpaddress.split("@")[1] -notin $Domains}
+            } else {
+                Get-Recipient -Identity $member.name | Select-Object name, PrimarySmtpAddress, @{name = "InternalExternal"; expression = {if ($_.primarysmtpaddress.split("@")[1] -notin $Domains){"External"}else{"Internal"}}}
             }
-        } catch {
-            Write-Host "Error processing group $($_.name): $_" -ForegroundColor Red
         }
     }
+}
 
     # Export results to CSV
     try {
