@@ -30,7 +30,7 @@ Function publicDLreport {
     # Gather domains to consider internal for report
     if (($Domains.count -lt 1) -or ($Domains[0].length -lt 1)) {
         try {
-            $Domains = ((Read-host "Type in a comma-separated list of your email domains, IE domain1.com,domain2.com") -replace ('@|"| ','')).split(",")
+            $Domains = ((Read-host "Type in a comma-separated list of your email domains, IE domain1.com,domain2.com") -replace ('@|"| ',"")).split(",")
         } catch {
             Write-Host "Error reading domains input: $_" -ForegroundColor Red
             return
@@ -48,7 +48,9 @@ Function publicDLreport {
     # Get all public distribution groups members
     $results = @()
     $public_groups | ForEach-Object {
-        if (!($Silent)) { Write-host "`n`nShowing members for $($_.name)" -ForegroundColor Cyan }
+        if (!($Silent)) {
+            Write-Host "Processing group: $($_.name)" -ForegroundColor Cyan
+        }
         try {
             $members = Get-DistributionGroupMember -Identity $_.name
             foreach ($member in $members) {
