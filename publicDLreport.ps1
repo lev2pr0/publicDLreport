@@ -57,10 +57,21 @@ Function publicDLreport {
                 try {
                     $recipient = Get-Recipient -Identity $member.name
                     if ($showExternalOnly) {
+                        # Filter external members only
                         $filtered = $recipient | Where-Object {$_.primarysmtpaddress.split("@")[1] -notin $Domains}
-                        $results += $filtered | Select-Object name, PrimarySmtpAddress
+                        $results += $filtered | Select-Object Name, PrimarySmtpAddress
                     } else {
-                        $results += $recipient | Select-Object name, PrimarySmtpAddress, @{name = "InternalExternal"; expression = {if ($_.primarysmtpaddress.split("@")[1] -notin $Domains){"External"}else{"Internal"}}}
+                        # Add InternalExternal column
+                        $results += $recipient | Select-Object Name, PrimarySmtpAddress, @{
+                            Name = "InternalExternal";
+                            Expression = {
+                                if ($_.PrimarySmtpAddress.split("@")[1] -notin $Domains) {
+                                    "External"
+                                } else {
+                                    "Internal"
+                                }
+                            }
+                        }
                     }
                 } catch {
                     Write-Host "Error retrieving recipient details for member $($member.name): $_" -ForegroundColor Yellow
