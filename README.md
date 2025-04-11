@@ -113,8 +113,6 @@ Install-Module ExchangeOnlineManagement -Force
 
 -- The script's behavior may vary depending on the system configuration and environment.
 
----
-
 <br></br>
 ## Contributing
 
