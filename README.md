@@ -50,6 +50,9 @@ Skips the connection to Exchange Online sessions entirely for Exchange Managemen
 
 ### Run the function to generate a report for public distribution lists for Exchange On-Premise examples
 ```powershell
+FILL WITH OUTPATH EXAMPLE
+```
+```powershell
 ./publicDLreport.ps1 -Domains "domain1.com,domain2.com" -onpremEX
 ```
 ```powershell
@@ -59,6 +62,9 @@ Skips the connection to Exchange Online sessions entirely for Exchange Managemen
 ---
 
 ### Run the function to generate a report for public distribution lists for Exchange Online examples
+```powershell
+FILL WITH OUTPATH EXAMPLE
+```
 ```powershell
 ./publicDLreport.ps1 -Domains "domain1.com,domain2.com"
 ```
