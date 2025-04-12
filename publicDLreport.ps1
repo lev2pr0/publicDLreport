@@ -30,7 +30,7 @@ Function publicDLreport {
     # Gather domains to consider internal for report
     if (($Domains.count -lt 1) -or ($Domains[0].length -lt 1)) {
         try {
-            $Domains = ((Read-host "Type in a comma-separated list of your email domains, IE domain1.com,domain2.com") -replace ('@|"| ','')).split(",")
+            $Domains = ((Read-host "Type in a comma-separated list of your email domains, IE domain1.com,domain2.com") -replace ('@|"| ','')) -split ","
         } catch {
             Write-Host "Error reading domains input: $_" -ForegroundColor Red
             return
@@ -55,10 +55,19 @@ Function publicDLreport {
                 try {
                     $recipient = Get-Recipient -Identity $member.name
                     if ($showExternalOnly) {
-                        $filtered = $recipient | Where-Object {$_.primarysmtpaddress.split("@")[1] -notin $Domains}
+                        $filtered = $recipient | Where-Object { ($_.PrimarySmtpAddress -split "@")[1] -notin $Domains }
                         $results += $filtered | Select-Object name, PrimarySmtpAddress
                     } else {
-                        $results += $recipient | Select-Object name, PrimarySmtpAddress, @{name = "InternalExternal"; expression = {if ($_.primarysmtpaddress.split("@")[1] -notin $Domains){"External"}else{"Internal"}}}
+                        $results += $recipient | Select-Object Name, PrimarySmtpAddress, @{
+                            name = "InternalExternal";
+                            expression = {
+                                if (($_.PrimarySmtpAddress -split "@")[1] -notin $Domains) {
+                                    "External"
+                                } else {
+                                    "Internal"
+                                }
+                            }
+                        }
                     }
                 } catch {
                     Write-Host "Error retrieving recipient details for member $($member.name): $_" -ForegroundColor Yellow
