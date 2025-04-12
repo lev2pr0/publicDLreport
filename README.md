@@ -6,7 +6,7 @@ Microsoft currently provides limited reporting on providing insights into Public
 <br></br>
 For further reporting capabilities, refer to the [Mailbox Forward Report](https://github.com/lev2pr0/mailboxforwardreport) feature, which enables the retrieval of reports encompassing all user and shared mailboxes with forwarding SMTP addresses configured.
 <br></br>
-**Support?** Feel free to treat me to lunch 🥪 or decaf coffee ☕️ via [Paypal](https://paypal.me/LevarN?country.x=US&locale.x=en_US)
+**Support?** Feel free to treat me to lunch 🥪 or decaf coffee ☕️ via [Paypal Donation](https://www.paypal.com/donate/?business=E7G9HLW2WPV22&no_recurring=1&item_name=Empowering+all+to+achieve+success+through+technology.%0A&currency_code=USD)
 
 <br></br>
 ## Installation 
