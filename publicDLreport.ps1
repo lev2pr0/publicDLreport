@@ -6,6 +6,7 @@ Function publicDLreport {
         [switch]$Silent,
         [switch]$showExternalOnly,
         [switch]$onpremEX
+        [string]$OutputPath = "PublicDLReport.csv" # Default output path
     )
 
     # Connect to Exchange Online and skips if -onpremEX switch is found
@@ -81,8 +82,8 @@ Function publicDLreport {
 
     # Export results to CSV
     try {
-        $results | Export-Csv -Path "PublicDLReport.csv" -NoTypeInformation
-        Write-Host "Report exported to PublicDLReport.csv" -ForegroundColor Green
+        $results | Export-Csv -Path $OutputPath -NoTypeInformation
+        Write-Host "Report exported to $OutputPath" -ForegroundColor Green
     } catch {
         Write-Host "Error exporting results to CSV: $_" -ForegroundColor Red
     }
