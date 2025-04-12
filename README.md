@@ -2,7 +2,7 @@
 
 This script is designed to automate the process of generating a report of members for public distribution lists (DLs) in Exchange Online or On-premises Exchange.
 
-## Installation
+## Installation 
 
 ### Install via local path of script to create & run function in PowerShell or Exchange Management Shell (EMS) session
 ```powershell
@@ -44,20 +44,20 @@ Skips the connection to Exchange Online sessions entirely for Exchange Managemen
 
 ### Run the function to generate a report for public distribution lists for Exchange On-Premise examples
 ```powershell
-publicDLreport -Domains "domain1.com,domain2.com" -onpremEX
+./publicDLreport.ps1 -Domains "domain1.com,domain2.com" -onpremEX
 ```
 ```powershell
-publicDLreport -Domains "domain1.com,domain2.com" -onpremEX -showExternalOnly
+./publicDLreport.ps1 -Domains "domain1.com,domain2.com" -onpremEX -showExternalOnly
 ```
 
 ---
 
 ### Run the function to generate a report for public distribution lists for Exchange Online examples
 ```powershell
-publicDLreport -Domains "domain1.com,domain2.com"
+./publicDLreport.ps1 -Domains "domain1.com,domain2.com"
 ```
 ```powershell
-publicDLreport -Domains "domain1.com,domain2.com" -showExternalOnly
+./publicDLreport.ps1 -Domains "domain1.com,domain2.com" -showExternalOnly
 ```
 
 <br></br>
