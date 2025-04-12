@@ -1,13 +1,17 @@
 # Public Distribution List Report
 
-This script is designed to automate the process of generating a report of members for public distribution lists (DLs) in Exchange Online or On-premises Exchange.
+## Purpose 
 
+Microsoft currently provides limited reporting on providing insights into Public Distribution Lists. Given the potential risks associated with external senders posing as threat actors (phishing, whaling, and other social engineering tactics) or compromised business partners (business email compromise attacks), a proactive approach to risk management is essential. This script is designed to automate the generation of a report of members for Distribution Lists open to external senders in Microsoft 365’s Exchange Online or on-premises Exchange servers.
+<br></br>
+For further reporting capabilities, refer to the [Mailbox Forward Report](https://github.com/lev2pr0/mailboxforwardreport) feature, which enables the retrieval of reports encompassing all user and shared mailboxes with forwarding SMTP addresses configured.
+<br></br>
+**Support?** Feel free to treat me to lunch 🥪 or decaf coffee ☕️ via [Paypal](https://paypal.me/LevarN?country.x=US&locale.x=en_US)
+
+<br></br>
 ## Installation 
 
-### Install via local path of script to create & run function in PowerShell or Exchange Management Shell (EMS) session
-```powershell
-./publicDLreport.ps1 -Parameter1 -Parameter2
-```
+<img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGlmcmhqeWZkejFnZHV3MnU2MTIxYjczNW9ldTJmdm1leDdsaXR4YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vR1dPIYzQmkRzLZk2w/giphy.gif" width="200" height="200" />
 
 <br></br>
 ## Parameters 
@@ -71,6 +75,11 @@ FILL WITH OUTPATH EXAMPLE
 ```powershell
 ./publicDLreport.ps1 -Domains "domain1.com,domain2.com" -showExternalOnly
 ```
+
+<br></br>
+## Screenshot of report imported in Excel
+
+<img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGlmcmhqeWZkejFnZHV3MnU2MTIxYjczNW9ldTJmdm1leDdsaXR4YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vR1dPIYzQmkRzLZk2w/giphy.gif" width="200" height="200" />
 
 <br></br>
 ## NOTES
