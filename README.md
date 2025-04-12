@@ -12,6 +12,12 @@ This script is designed to automate the process of generating a report of member
 <br></br>
 ## Parameters 
 
+```powershell
+-OutputPath
+```
+Allows the user to specify the location of the exported CSV file.
+
+---
 
 ```powershell
 -Silent
