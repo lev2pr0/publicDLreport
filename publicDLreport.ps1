@@ -48,7 +48,7 @@ Function publicDLreport {
     # Get all public distribution groups members
     $results = @()
     $public_groups | ForEach-Object {
-        if (!($Silent)) { Write-host "`n`nShowing members for $($_.name)" -ForegroundColor Cyan }
+        if (!($Silent)) { Write-host "Processing members of $($_.name)" -ForegroundColor Cyan }
         try {
             $members = Get-DistributionGroupMember -Identity $_.name
             foreach ($member in $members) {
