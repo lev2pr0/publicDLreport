@@ -5,41 +5,84 @@ Function publicDLreport {
         [string[]]$Domains=@(),
         [switch]$Silent,
         [switch]$showExternalOnly,
-        [switch]$skipEXOCheck,
         [switch]$onpremEX
     )
 
-    ## Connect to Exchange Online and skips if -onpremEX switch is found
-    ## The switch -skipEXOCheck is used to keep check for Exchange 
-    if (-not $onpremEX) {
-        $exchSessions = (Get-ConnectionInformation | Where-Object {$_.name -like "*ExchangeOnline*"})
-        if (($exchSessions.count -lt 1) -or ($skipEXOCheck)) {
-            Connect-ExchangeOnline
-        } else {
-            Write-Host "Exchange Online session detected. If you encounter any issues, rerun this command with the -skipEXOCheck switch."
+    # Connect to Exchange Online and skips if -onpremEX switch is found
+    if ($onpremEX -eq $false) {
+        Write-Host "Connecting to Exchange Online..." -ForegroundColor Cyan
+        try {
+            $exchSessions = (Get-ConnectionInformation | Where-Object {$_.name -like "*ExchangeOnline*"})
+            if ($exchSessions.count -lt 1) {
+                Connect-ExchangeOnline
+            } else {
+                Write-Host "Already connected to Exchange Online." -ForegroundColor Green
+            }
+        } catch {
+            Write-Host "Error connecting to Exchange Online: $_" -ForegroundColor Red
+            Write-Host "If using on-premises Exchange, then rerun use -onPremEX switch" -ForegroundColor Red
+            return
         }
     } else {
-        Write-Host "Skipping Exchange Online session and connection as -onPremEX is provided." -ForegroundColor Cyan
+        Write-Host "Skipping Exchange Online connection as -onPremEX is provided." -ForegroundColor Cyan
     }
 
-    ## Gather domains to consider internal for script (the -onpremEX switch start here after last write-host above)
+    # Gather domains to consider internal for report
     if (($Domains.count -lt 1) -or ($Domains[0].length -lt 1)) {
-        $Domains = ((Read-host "Type in a comma-separated list of your email domains, IE domain1.com,domain2.com") -replace ('@|"| ','')).split(",")
+        try {
+            $Domains = ((Read-host "Type in a comma-separated list of your email domains, IE domain1.com,domain2.com") -replace ('@|"| ','')) -split ","
+        } catch {
+            Write-Host "Error reading domains input: $_" -ForegroundColor Red
+            return
+        }
     }
 
-    ## Get all distribution groups that are public (RequireSenderAuthenticationEnabled = false)
-    $public_groups = Get-DistributionGroup | Where-Object {$_.RequireSenderAuthenticationEnabled -eq $false}
+    # Get all distribution groups that are public
+    try {
+        $public_groups = Get-DistributionGroup | Where-Object {$_.RequireSenderAuthenticationEnabled -eq $false}
+    } catch {
+        Write-Host "Error retrieving public distribution groups: $_" -ForegroundColor Red
+        return
+    }
 
-    ## Get all public distribution groups members
+    # Get all public distribution groups members
+    $results = @()
     $public_groups | ForEach-Object {
-        if (!($silent)) { Write-host "`n`nShowing members for $($_.name)" -ForegroundColor Cyan }
-        $members = Get-DistributionGroupMember -Identity $_.name
-        foreach ($member in $members) {
-            if ($showExternalOnly) {
-                Get-Recipient -Identity $member.name | Select-Object name, PrimarySmtpAddress | Where-Object {$_.primarysmtpaddress.split("@")[1] -notin $Domains}
-            } else {
-                Get-Recipient -Identity $member.name | Select-Object name, PrimarySmtpAddress, @{name = "InternalExternal"; expression = {if ($_.primarysmtpaddress.split("@")[1] -notin $Domains){"External"}else{"Internal"}}}
+        if (!($Silent)) { Write-host "Processing members of $($_.name)" -ForegroundColor Cyan }
+        try {
+            $members = Get-DistributionGroupMember -Identity $_.name
+            foreach ($member in $members) {
+                try {
+                    $recipient = Get-Recipient -Identity $member.name
+                    if ($showExternalOnly) {
+                        $filtered = $recipient | Where-Object { ($_.PrimarySmtpAddress -split "@")[1] -notin $Domains }
+                        $results += $filtered | Select-Object name, PrimarySmtpAddress
+                    } else {
+                        $results += $recipient | Select-Object Name, PrimarySmtpAddress, @{
+                            name = "InternalExternal";
+                            expression = {
+                                if (($_.PrimarySmtpAddress -split "@")[1] -notin $Domains) {
+                                    "External"
+                                } else {
+                                    "Internal"
+                                }
+                            }
+                        }
+                    }
+                } catch {
+                    Write-Host "Error retrieving recipient details for member $($member.name): $_" -ForegroundColor Yellow
+                }
             }
+        } catch {
+            Write-Host "Error processing group $($_.name): $_" -ForegroundColor Red
         }
+    }
+
+    # Export results to CSV
+    try {
+        $results | Export-Csv -Path "PublicDLReport.csv" -NoTypeInformation
+        Write-Host "Report exported to PublicDLReport.csv" -ForegroundColor Green
+    } catch {
+        Write-Host "Error exporting results to CSV: $_" -ForegroundColor Red
     }
 }

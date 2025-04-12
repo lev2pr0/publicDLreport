@@ -28,13 +28,6 @@ Shows only external members of the distribution lists. Use this switch to filter
 ---
 
 ```powershell
--skipEXOCheck
-```
-Skips the check for an existing Exchange Online session. Use this switch if you want to run the script without checking for an active session.
-
----
-
-```powershell
 -Domains
 ```
 Specifies the email domains to be used for filtering external members. This parameter accepts a comma-separated list of domains. If not provided, the script will prompt for input.
@@ -44,12 +37,12 @@ Specifies the email domains to be used for filtering external members. This para
 ```powershell
 -onpremEX
 ```
-Skips the check for Exchange Online sessions entirely for Exchange Management Shell. Use this switch if you want to use for Exchange On-Premises.
+Skips the connection to Exchange Online sessions entirely for Exchange Management Shell. Use this switch if you want to use for Exchange On-Premise.
 
 <br></br>
 ## Usage Examples
 
-### Run the function to generate a report for public distribution lists for On-premises Exchange examples
+### Run the function to generate a report for public distribution lists for Exchange On-Premise examples
 ```powershell
 publicDLreport -Domains "domain1.com,domain2.com" -onpremEX
 ```
@@ -67,24 +60,6 @@ publicDLreport -Domains "domain1.com,domain2.com"
 publicDLreport -Domains "domain1.com,domain2.com" -showExternalOnly
 ```
 
----
-
-### Run the function to generate a report for public distribution lists with silent output to .csv for Exchange Online
-```powershell
-publicDLreport -Silent -Domains "domain1.com,domain2.com" | Export-Csv -Path "C:\Temp\PublicDLreport.csv" -NoTypeInformation
-```
-```powershell
-publicDLreport -Silent -Domains "domain1.com,domain2.com" -showExternalOnly | Export-Csv -Path "C:\Temp\PublicDLreport.csv" -NoTypeInformation
-```
----
-
-### Run the function to generate a report for public distribution lists with silent output to .csv for On-premises Exchange
-```powershell
-publicDLreport -Silent -Domains "domain1.com,domain2.com" -onpremEX | Export-Csv -Path "C:\Temp\PublicDLreport.csv" -NoTypeInformation
-```
-```powershell
-publicDLreport -Silent -Domains "domain1.com,domain2.com" -onpremEX -showExternalOnly | Export-Csv -Path "C:\Temp\PublicDLreport.csv" -NoTypeInformation
-```
 <br></br>
 ## NOTES
 
