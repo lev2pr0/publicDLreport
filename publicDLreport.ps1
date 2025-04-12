@@ -21,7 +21,7 @@ Function publicDLreport {
             }
         } catch {
             Write-Host "Error connecting to Exchange Online: $_" -ForegroundColor Red
-            Write-Host "If using on-premise Exchange, then rerun use -onPremEX switch" -ForegroundColor Red
+            Write-Host "If using on-premise Exchange, then rerun using -onPremEX switch" -ForegroundColor Red
             return
         }
     } else {
