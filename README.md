@@ -4,9 +4,9 @@ This script is designed to automate the process of generating a report of member
 
 ## Installation
 
-### Run via local path of script to create function in PowerShell or Exchange Management Shell (EMS) session
+### Install via local path of script to create & run function in PowerShell or Exchange Management Shell (EMS) session
 ```powershell
-./publicDLreport.ps1
+./publicDLreport.ps1 -Parameter1 -Parameter2
 ```
 
 <br></br>
