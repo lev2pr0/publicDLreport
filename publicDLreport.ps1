@@ -64,14 +64,14 @@ Function publicDLreport {
                     $results += [PSCustomObject]@{
                         PrimarySmtpAddress = $filtered.PrimarySmtpAddress
                         Organization = "External"
-                        GroupEmail = $_.EmailAddress
+                        GroupEmail = $_.Email
                         GroupType = $_.RecipientTypeDetails
                     }
                 } else { # Report all members
                     $results += [PSCustomObject]@{
                         PrimarySmtpAddress = $recipient.PrimarySmtpAddress
                         Organization = if ($recipientDomain -contains $Domains) { "Internal" } else { "External" }
-                        GroupEmail = $_.EmailAddress
+                        GroupEmail = $_.PrimarySmtpAddress
                         GroupType = $_.RecipientTypeDetails
                         }
                     }
