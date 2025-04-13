@@ -35,13 +35,6 @@ Allows the user to specify the location of the exported CSV file.
 ---
 
 ```powershell
--showExternalOnly
-```
-Shows only external members of the distribution lists. Use this switch to filter the report to include only external members.
-
----
-
-```powershell
 -Domains
 ```
 Specifies the email domains to be used for filtering external members. This parameter accepts a comma-separated list of domains. If not provided, the script will end.
@@ -63,9 +56,6 @@ publicDLreport -Domains "domain1.com,domain2.com" -OutputPath "C:\Reports"
 ```powershell
 publicDLreport -Domains "domain1.com,domain2.com"
 ```
-```powershell
-publicDLreport -Domains "domain1.com,domain2.com" -showExternalOnly
-```
 
 ---
 
@@ -76,16 +66,13 @@ publicDLreport -Domains "domain1.com,domain2.com" -OutputPath "C:\Reports" -onpr
 ```powershell
 publicDLreport -Domains "domain1.com,domain2.com" -onpremEX
 ```
-```powershell
-publicDLreport -Domains "domain1.com,domain2.com" -onpremEX -showExternalOnly
-```
 
 <br></br>
 ## Demo
 
 ### Report in directory
 
-### CSV Report imported in Microsoft Excel
+### CSV Report
 <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGlmcmhqeWZkejFnZHV3MnU2MTIxYjczNW9ldTJmdm1leDdsaXR4YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vR1dPIYzQmkRzLZk2w/giphy.gif" width="200" height="200" />
 
 <br></br>
