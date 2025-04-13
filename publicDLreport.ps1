@@ -44,7 +44,7 @@ Function publicDLreport {
     try {
         $public_groups = Get-DistributionGroup | Where-Object {$_.RequireSenderAuthenticationEnabled -eq $false}
     } catch {
-        Write-Host "Error retrieving public distribution group: $($_.Name): $_" -ForegroundColor Red
+        Write-Host "Error retrieving public distribution group: $($_.PrimarySmtpAddress): $_" -ForegroundColor Red
         return
     }
 
@@ -81,7 +81,7 @@ Function publicDLreport {
                 }
         }
     } catch { # Handle errors for each group
-            Write-Host "Error processing group $($_.name): $_" -ForegroundColor Red
+            Write-Host "Error processing group $($_.PrimarySmtpAddress): $_" -ForegroundColor Red
             }
 }
 
