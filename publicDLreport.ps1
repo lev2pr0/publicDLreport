@@ -50,7 +50,7 @@
     
         # Get members of each public distribution group
         $results = @()
-        $public_groups | ForEach-Object -Parallel {
+        $public_groups | ForEach-Object {
             Write-host "Processing members of $($_.name)" -ForegroundColor Cyan
             try {
             $members = Get-DistributionGroupMember -Identity $_.name
@@ -86,6 +86,7 @@
         } catch { # Handle errors for each group
                 Write-Host "Error processing group $($_.name): $_" -ForegroundColor Red
                 }
+    }
     
         # Export results to CSV
         try {
