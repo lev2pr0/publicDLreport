@@ -10,7 +10,7 @@ Function publicDLreport {
     )
 
     # Connect to Exchange Online and skips if -onpremEX switch is found
-    if ($onpremEX -eq $false) {
+    if (-not $onpremEX) {
         Write-Host "Connecting to Exchange Online..." -ForegroundColor Cyan
         try { # Check for existing Exchange Online sessions
         $exchSessions = (Get-ConnectionInformation | Where-Object {$_.name -like "*ExchangeOnline*"})
