@@ -72,7 +72,7 @@ Function publicDLreport {
                     $results += [PSCustomObject]@{
                         Name = $recipient.Name
                         PrimarySmtpAddress = $recipient.PrimarySmtpAddress
-                        Organization = if $recipientDomain -contains $Domains { "Internal" } else { "External" }
+                        Organization = if ($recipientDomain -contains $Domains) { "Internal" } else { "External" }
                         ${Group Name} = $_.name
                         ${Group Type} = $_.RecipientTypeDetails
                         }
