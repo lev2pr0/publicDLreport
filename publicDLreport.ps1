@@ -59,7 +59,7 @@ Function publicDLreport {
                 $recipient = Get-Recipient -Identity $member.name
                 # Report only external members if -showExternalOnly is specified
                 if ($showExternalOnly) {
-                    $filtered = $recipient | Where-Object { ($_.PrimarySmtpAddress -split "@")[1] -notin $Domains }
+                    $filtered = $recipient | Where-Object { (PrimarySmtpAddress -split "@")[1] -notin Domains }
                     $results += [PSCustomObject]@{
                         Name = $filtered.Name
                         PrimarySmtpAddress = $filtered.PrimarySmtpAddress
