@@ -2,7 +2,7 @@
 
 ## Purpose 
 
-Microsoft currently provides limited reporting on providing insights into Public Distribution Lists. Given the potential risks associated with external senders posing as threat actors (phishing, whaling, and other social engineering tactics) or compromised business partners (business email compromise attacks), a proactive approach to risk management is essential. 
+Public distribution lists are open to external senders who pose a risk to the organization due to the occurrence of phishing, whaling, and other social engineering tactics. Additionally, compromised business partners (business email compromise attacks) can also be a concern. Therefore, a proactive approach to risk management is crucial, even if the group is limited to specific senders. 
 <br></br>
 To address these challenges, this script is designed to automate the generation of a report of members for Distribution Lists open to external senders in Microsoft 365’s Exchange Online or on-premises Exchange servers.
 <br></br>
@@ -81,8 +81,13 @@ publicDLreport -Domains "domain1.com,domain2.com" -onpremEX -showExternalOnly
 ```
 
 <br></br>
-## Screenshot of report imported in Excel
+## Demo
 
+### Report in directory
+
+### CSV Report
+
+### CSV Report imported in Microsoft Excel
 <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGlmcmhqeWZkejFnZHV3MnU2MTIxYjczNW9ldTJmdm1leDdsaXR4YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vR1dPIYzQmkRzLZk2w/giphy.gif" width="200" height="200" />
 
 <br></br>
@@ -126,7 +131,7 @@ Install-Module ExchangeOnlineManagement -Force
 <br></br>
 ## Contributing
  
-Open to all collaboration 🙏🏽
+Open to all collaborations 🙏🏽
 
 Please follow best practice outlined below:
 
