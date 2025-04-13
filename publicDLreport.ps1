@@ -64,15 +64,15 @@ Function publicDLreport {
                     GroupType = $_.RecipientTypeDetails
                     }
                 }
+            catch { # Handle errors for each member
+            Write-Host "Error retrieving recipient details for member $($member.name): $_" -ForegroundColor Yellow
             }
-         catch { # Handle errors for each member
-                Write-Host "Error retrieving recipient details for member $($member.name): $_" -ForegroundColor Yellow
-                }
         }
-    } catch { # Handle errors for each group
+         
+    }
+} catch { # Handle errors for each group
             Write-Host "Error processing group $($_.PrimarySmtpAddress): $_" -ForegroundColor Red
             }
-}
 
     # Export results to CSV
     try {
