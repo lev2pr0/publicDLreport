@@ -2,7 +2,7 @@
 
 ## Purpose 
 
-Public distribution lists are open to external senders who pose a risk to the organization due to the occurrence of phishing, whaling, and other social engineering tactics. Additionally, compromised business partners (business email compromise attacks) can also be a concern. Therefore, a proactive approach to risk management is crucial, even if the group is limited to specific senders. 
+Public distribution lists are open to external senders who pose a risk to the organization. External threats such as phishing, whaling, compromised business partners (business email compromise attacks), and other social engineering tactics are concerns. Therefore, a proactive approach to risk management is crucial, even if the groups are limited to specific external senders. 
 <br></br>
 To address these challenges, this script is designed to automate the generation of a report of members for Distribution Lists open to external senders in Microsoft 365’s Exchange Online or on-premises Exchange servers.
 <br></br>
