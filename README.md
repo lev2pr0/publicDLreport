@@ -79,6 +79,8 @@ publicDLreport -Domains "domain1.com,domain2.com" -onpremEX
 ![Screenshot_CSVinExcel](https://github.com/user-attachments/assets/c7efcddb-e678-4705-9100-347ab97c4b71)
 
 
+**Important Note:** PrimarySMTPAddress will show empty for internal members still apart of group with no mailbox. 
+
 <br></br>
 ## NOTES
 
