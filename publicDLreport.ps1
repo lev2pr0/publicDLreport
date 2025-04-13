@@ -1,4 +1,4 @@
-[README.md]#https://github.com/lev2pr0/publicDLreport/blob/main/README.md)
+#README.md(https://github.com/lev2pr0/publicDLreport/blob/main/README.md)
 ## Function to generate a report for public distribution lists
 ## This function retrieves all public distribution groups and their members, filtering based on the provided email domains.
 Function publicDLreport {
@@ -35,7 +35,9 @@ Function publicDLreport {
     # Validate domains
     $Domains = $Domains | Where-Object { $_ -match '^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' }
     if ($Domains.count -lt 1) {
-        Write-Host "No valid domains provided. Exiting." -ForegroundColor Red
+        Write-Host "No valid domains provided." -ForegroundColor Red
+        Write-Host "Please provide a valid domain list in the format: domain1.com,domain2.com" -ForegroundColor Red
+        Write-Host "Exiting script." -ForegroundColor Red
         return
     }
 
@@ -51,34 +53,33 @@ Function publicDLreport {
     $results = @()
     $public_groups | ForEach-Object {
         Write-host "Processing members of $($_.PrimarySmtpAddress)" -ForegroundColor Cyan
-        try {
         $members = Get-DistributionGroupMember -Identity $_.name
         foreach ($member in $members) {
-            try { # Get recipient details for each member
+             # Get recipient details for each member
                 $recipient = Get-Recipient -Identity $member.name
-                $recipientDomain = ($recipient.PrimarySmtpAddress -split "@")[1]
-                $results += [PSCustomObject]@{
-                    PrimarySmtpAddress = $recipient.PrimarySmtpAddress
-                    Organization = if ($recipientDomain -contains $Domains) { "Internal" } else { "External" }
-                    GroupEmail = $_.PrimarySmtpAddress
-                    GroupType = $_.RecipientTypeDetails
+                if ($null -ne $recipient) {
+                    $recipientDomain = ($recipient.PrimarySmtpAddress -split "@")[1]
+                    $results += [PSCustomObject]@{
+                        PrimarySmtpAddress = $recipient.PrimarySmtpAddress
+                        Organization = if ($recipientDomain -in $Domains) { "Internal" } else { "External" }
+                        GroupEmail = $_.PrimarySmtpAddress
+                        GroupType = $_.RecipientTypeDetails
                     }
+                } else {
+                    Write-Host "Recipient not found for member $($member.name)" -ForegroundColor Yellow
                 }
-            catch { # Handle errors for each member
-            Write-Host "Error retrieving recipient details for member $($member.name): $_" -ForegroundColor Yellow
             }
         }
          
-    }catch { # Handle errors for each group
-            Write-Host "Error processing group $($_.PrimarySmtpAddress): $_" -ForegroundColor Red
-            }
-}
-
     # Export results to CSV
-    try {
-        $results | Export-Csv -Path $OutputPath -NoTypeInformation
-        Write-Host "Report exported to $OutputPath" -ForegroundColor Green
-    } catch { # Handle errors during export
-        Write-Host "Error exporting results to CSV: $_" -ForegroundColor Red
+    if ($results.Count -gt 0) {
+        try {
+            $results | Export-Csv -Path $OutputPath -NoTypeInformation
+            Write-Host "Report exported to $OutputPath" -ForegroundColor Green
+        } catch {
+            Write-Host "Error exporting results to CSV: $_" -ForegroundColor Red
+        }
+    } else {
+        Write-Host "No results to export." -ForegroundColor Yellow
     }
 }
