@@ -4,7 +4,6 @@
 Function publicDLreport {
     param(
         [string[]]$Domains = @(),
-        [switch]$showExternalOnly,
         [switch]$onpremEX,
         [string]$OutputPath = "PublicDLReport_$(Get-Date -Format 'yyyyMMdd_HHmmss').csv" # Default output path
     )
@@ -58,23 +57,13 @@ Function publicDLreport {
             try { # Get recipient details for each member
                 $recipient = Get-Recipient -Identity $member.name
                 $recipientDomain = ($recipient.PrimarySmtpAddress -split "@")[1]
-                # Report only external members if -showExternalOnly is specified
-                if ($showExternalOnly) {
-                    $filtered = $recipient | Where-Object { $Domains -notcontains $recipientDomain } 
-                    $results += [PSCustomObject]@{
-                        PrimarySmtpAddress = $filtered.PrimarySmtpAddress
-                        Organization = "External"
-                        GroupEmail = $_.PrimarySmtpAddress
-                        GroupType = $_.RecipientTypeDetails
+                $results += [PSCustomObject]@{
+                    PrimarySmtpAddress = $recipient.PrimarySmtpAddress
+                    Organization = if ($recipientDomain -contains $Domains) { "Internal" } else { "External" }
+                    GroupEmail = $_.PrimarySmtpAddress
+                    GroupType = $_.RecipientTypeDetails
                     }
-                } else { # Report all members
-                    $results += [PSCustomObject]@{
-                        PrimarySmtpAddress = $recipient.PrimarySmtpAddress
-                        Organization = if ($recipientDomain -contains $Domains) { "Internal" } else { "External" }
-                        GroupEmail = $_.PrimarySmtpAddress
-                        GroupType = $_.RecipientTypeDetails
-                        }
-                    }
+                }
             }
          catch { # Handle errors for each member
                 Write-Host "Error retrieving recipient details for member $($member.name): $_" -ForegroundColor Yellow
