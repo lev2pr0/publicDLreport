@@ -121,10 +121,7 @@ Please follow best practice outlined below:
 6. Test, test, test and verify
 7. Open pull request to ```main``` with details of changes (screenshots if applicable)
 
-Once steps complete, I will engage to discuss changes if required and evaluate readiness for merge. Cases where pull request are closed I will provide detailed notes on the why and provide direction for next pull request. 
-
-
-<img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGlmcmhqeWZkejFnZHV3MnU2MTIxYjczNW9ldTJmdm1leDdsaXR4YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vR1dPIYzQmkRzLZk2w/giphy.gif" width="200" height="200" />
+Once steps complete, I will engage to discuss changes if required and evaluate readiness for merge. Cases where pull requests are closed I will provide detailed notes on the why and provide direction for your next pull request. 
 
 <br></br>
 ## License
