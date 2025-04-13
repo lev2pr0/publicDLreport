@@ -57,10 +57,10 @@ Function publicDLreport {
         foreach ($member in $members) {
             try { # Get recipient details for each member
                 $recipient = Get-Recipient -Identity $member.name
-                $recipientDomain = $recipient.PrimarySmtpAddress -split "@"[1]
+                $recipientDomain = ($recipient.PrimarySmtpAddress -split "@")[1]
                 # Report only external members if -showExternalOnly is specified
                 if ($showExternalOnly) {
-                    $filtered = $recipient | Where-Object $recipientDomain -notin $Domains 
+                    $filtered = $recipient | Where-Object { $Domains -notcontains $recipientDomain } 
                     $results += [PSCustomObject]@{
                         Name = $filtered.Name
                         PrimarySmtpAddress = $filtered.PrimarySmtpAddress
@@ -76,9 +76,7 @@ Function publicDLreport {
                         ${Group Name} = $_.name
                         ${Group Type} = $_.RecipientTypeDetails
                         }
-                    } catch { # Handle errors for each member
-                        Write-Host "Error retrieving recipient details for member $($member.name): $_" -ForegroundColor Yellow
-                        }
+                    }
             }
          catch { # Handle errors for each member
                 Write-Host "Error retrieving recipient details for member $($member.name): $_" -ForegroundColor Yellow
