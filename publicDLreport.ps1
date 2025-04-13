@@ -20,7 +20,8 @@ Function publicDLreport {
             }
         } catch { # Handle errors connecting to Exchange Online
             Write-Host "Error connecting to Exchange Online: $_" -ForegroundColor Red
-            Write-Host "If using on-premise Exchange, then rerun using -onPremEX switch" -ForegroundColor Red
+            Write-Host "If using Exchange Management Shell on Exchange Server, then rerun using -onPremEX switch" -ForegroundColor Red
+            Write-Host "Exiting script." -ForegroundColor Red
             return
         }
         } else { # Skip Exchange Online session check and connection
