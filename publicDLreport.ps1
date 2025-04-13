@@ -62,18 +62,16 @@ Function publicDLreport {
                 if ($showExternalOnly) {
                     $filtered = $recipient | Where-Object { $Domains -notcontains $recipientDomain } 
                     $results += [PSCustomObject]@{
-                        Name = $filtered.Name
                         PrimarySmtpAddress = $filtered.PrimarySmtpAddress
                         Organization = "External"
-                        GroupName = $_.name
+                        GroupEmail = $_.EmailAddress
                         GroupType = $_.RecipientTypeDetails
                     }
                 } else { # Report all members
                     $results += [PSCustomObject]@{
-                        Name = $recipient.Name
                         PrimarySmtpAddress = $recipient.PrimarySmtpAddress
                         Organization = if ($recipientDomain -contains $Domains) { "Internal" } else { "External" }
-                        GroupName = $_.name
+                        GroupEmail = $_.EmailAddress
                         GroupType = $_.RecipientTypeDetails
                         }
                     }
