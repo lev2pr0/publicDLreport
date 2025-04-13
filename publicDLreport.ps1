@@ -69,10 +69,10 @@ Function publicDLreport {
             }
         }
          
-    }
-} catch { # Handle errors for each group
+    }catch { # Handle errors for each group
             Write-Host "Error processing group $($_.PrimarySmtpAddress): $_" -ForegroundColor Red
             }
+}
 
     # Export results to CSV
     try {
