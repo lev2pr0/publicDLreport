@@ -131,7 +131,7 @@ Install-Module ExchangeOnlineManagement -Force
 <br></br>
 ## Contributing
  
-Open to all collaborations 🙏🏽
+Open to all collaboration 🙏🏽
 
 Please follow best practice outlined below:
 
