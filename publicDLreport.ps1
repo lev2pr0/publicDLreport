@@ -86,12 +86,6 @@ Function publicDLreport {
             }
     }
 
-    # Ensure output directory exists
-    $directory = Split-Path -Path $OutputPath
-    if (!(Test-Path -Path $directory)) {
-        New-Item -ItemType Directory -Path $directory -Force
-    }
-
     # Export results to CSV
     try {
         $results | Export-Csv -Path $OutputPath -NoTypeInformation
