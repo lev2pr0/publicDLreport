@@ -67,6 +67,8 @@ publicDLreport -Domains "domain1.com,domain2.com" -onpremEX
 ### Report in directory
 ![Screenshot_CSVinDirectory](https://github.com/user-attachments/assets/1617384b-65c4-40fa-868e-0f1c7b19d49f)
 
+**Important Note:** CSV report will show as *PublicDLreport_yyyyMMdd_HHmmss.csv* in directory of terminal if ```-OutputPath``` not specified.
+
 #
 
 ### CSV Report in Microsoft Excel
