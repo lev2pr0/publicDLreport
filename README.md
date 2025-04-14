@@ -7,14 +7,8 @@ Public distribution lists are open to external senders who pose a risk to the or
 To address these challenges, this script is designed to automate the generation of a report of members for Distribution Lists open to external senders in Microsoft 365’s Exchange Online or on-premises Exchange servers.
 <br></br>
 For further reporting capabilities, refer to the [Mailbox Forward Report](https://github.com/lev2pr0/mailboxforwardreport) feature, which enables the retrieval of reports encompassing all user and shared mailboxes with forwarding SMTP addresses configured.
+
 <br></br>
-
-<p align="center" 
- 
- **How to support?** Buy me coffee ☕️ via [Paypal](https://www.paypal.com/donate/?business=E7G9HLW2WPV22&no_recurring=1&item_name=Empowering+all+to+achieve+success+through+technology.%0A&currency_code=USD)
-
-</p>
-
 ## Installation 
 
 1. Download or make copy of script [here](https://github.com/lev2pr0/publicDLreport/blob/main/publicDLreport.ps1)
@@ -136,7 +130,14 @@ Please follow best practice outlined below:
 
 Once steps complete, I will engage to discuss changes if required and evaluate readiness for merge. Cases where pull requests are closed, I will provide detailed notes on the why and provide direction for your next pull request.
 
-<br></br>
+</br>
+
+<p align="center" 
+ 
+ **How to support?** Buy me coffee ☕️ via [Paypal](https://www.paypal.com/donate/?business=E7G9HLW2WPV22&no_recurring=1&item_name=Empowering+all+to+achieve+success+through+technology.%0A&currency_code=USD)
+
+</p>
+
 ## License
 
 [MIT License](https://choosealicense.com/licenses/mit/)
