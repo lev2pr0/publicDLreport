@@ -104,7 +104,7 @@ Install-Module ExchangeOnlineManagement -Force
 
 #
 
-### Warning
+### Disclaimers
 -- The  ```-onpremEX``` switch is required when running function in Exchange Management Shell
 
 
