@@ -24,9 +24,9 @@ Function publicDLreport {
             Write-Host "Exiting script." -ForegroundColor Red
             return
         }
-        } else { # Skip Exchange Online session check and connection
-        Write-Host "Skipping Exchange Online connection as -onpremEX is provided." -ForegroundColor Cyan
-    }
+    } else { # Skip Exchange Online session check and connection
+    Write-Host "Skipping Exchange Online connection as -onpremEX is provided." -ForegroundColor Cyan
+        }
 
     # Gather domains to consider internal for report
     if (($Domains.count -lt 1) -or ($Domains[0].length -lt 1)) {    
