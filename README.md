@@ -1,3 +1,6 @@
+**Archived Note:** Combined function in [Public Distribution Group and Mailbox Forward Report](https://github.com/lev2pr0/DLMailboxForwardingReport) 
+
+---
 # Public Distribution List Report
 
 ## Purpose 
